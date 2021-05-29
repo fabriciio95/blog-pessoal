@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogpessoal.model.Postagem;
@@ -35,7 +34,7 @@ public class PostagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> findById(@PathVariable Long id) {
 		return postagemRepository.findById(id)
-				.map(postagem -> ResponseEntity.ok(postagem))
+				.map(postagem ->  ResponseEntity.ok(postagem))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
@@ -46,9 +45,12 @@ public class PostagemController {
 	
 	
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public Postagem novaPostagem(@RequestBody @Valid Postagem postagem) {
-		return postagemRepository.save(postagem);
+	public ResponseEntity<Postagem> novaPostagem(@RequestBody @Valid Postagem postagem) {
+		if(postagem.getId() != null) {
+			return ResponseEntity.badRequest().build();
+		}
+	
+		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
 	}
 	
 	@PutMapping("/{id}")
@@ -56,6 +58,7 @@ public class PostagemController {
 		if(!postagemRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
+		postagem.setId(id);
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}
 	
