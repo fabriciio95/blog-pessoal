@@ -36,7 +36,8 @@ public class TemaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Tema> listarPorId(@PathVariable Long id) {	
 		return temaRepository.findById(id)
-				.map(tema -> ResponseEntity.ok(tema))
+				//.map(tema -> ResponseEntity.ok(tema))
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	

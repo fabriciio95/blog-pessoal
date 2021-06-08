@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.blogpessoal.repositories.PostagemRepository;
 
 @RestController
 @RequestMapping("/postagens")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostagemController {
 
 	@Autowired
@@ -34,7 +36,8 @@ public class PostagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> findById(@PathVariable Long id) {
 		return postagemRepository.findById(id)
-				.map(postagem ->  ResponseEntity.ok(postagem))
+				//.map(postagem ->  ResponseEntity.ok(postagem))
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
