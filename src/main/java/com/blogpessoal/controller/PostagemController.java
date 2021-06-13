@@ -35,19 +35,19 @@ public class PostagemController {
 	private TemaRepository temaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Postagem>> findAllPostagem() {
+	public ResponseEntity<List<Postagem>> listarPostagens() {
 		return ResponseEntity.ok(postagemRepository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Postagem> findById(@PathVariable Long id) {
+	public ResponseEntity<Postagem> buscarPorId(@PathVariable Long id) {
 		return postagemRepository.findById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Postagem>> findByTitulo(@PathVariable String titulo) {
+	public ResponseEntity<List<Postagem>> buscarPorTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(postagemRepository.findByTituloContainingIgnoreCase(titulo));
 	}
 	
@@ -72,7 +72,7 @@ public class PostagemController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		if(!postagemRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

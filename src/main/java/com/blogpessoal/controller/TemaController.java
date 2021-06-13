@@ -48,7 +48,7 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> novo(@RequestBody @Valid Tema tema) {		
+	public ResponseEntity<Tema> novoTema(@RequestBody @Valid Tema tema) {		
 		 return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	
