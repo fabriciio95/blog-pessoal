@@ -10,10 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
+import com.blogpessoal.validations.ValidationsGroups.ValidationAtualizacaoPostagem;
+import com.blogpessoal.validations.ValidationsGroups.ValidationId;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -24,22 +30,27 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Postagem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(groups = ValidationAtualizacaoPostagem.class)
+	@Null
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Size(min = 5, max = 100)
+	@NotBlank(groups = {Default.class, ValidationAtualizacaoPostagem.class})
+	@Size(groups = {Default.class, ValidationAtualizacaoPostagem.class}, min = 5, max = 100)
 	private String titulo;
 	
-	@NotBlank
-	@Size(min = 10, max = 500)
+	@NotBlank(groups = {Default.class, ValidationAtualizacaoPostagem.class})
+	@Size(groups = {Default.class, ValidationAtualizacaoPostagem.class}, min = 10, max = 500)
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
-	@NotNull
+	@Valid
+	@ConvertGroup(from = Default.class, to = ValidationId.class)
+	@ConvertGroup(from = ValidationAtualizacaoPostagem.class, to = ValidationId.class)
+	@NotNull(groups = {Default.class, ValidationAtualizacaoPostagem.class})
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Tema tema;

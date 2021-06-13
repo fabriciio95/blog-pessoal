@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogpessoal.model.Tema;
 import com.blogpessoal.repositories.TemaRepository;
+import com.blogpessoal.validations.ValidationsGroups.ValidationAtualizacaoTema;
 
 @RestController
 @RequestMapping("/temas")
@@ -36,7 +38,6 @@ public class TemaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Tema> listarPorId(@PathVariable Long id) {	
 		return temaRepository.findById(id)
-				//.map(tema -> ResponseEntity.ok(tema))
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
@@ -47,20 +48,15 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> novo(@RequestBody @Valid Tema tema) {
-		if(tema.getId() != null) {
-			return ResponseEntity.badRequest().build();
-		}
-		
+	public ResponseEntity<Tema> novo(@RequestBody @Valid Tema tema) {		
 		 return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Tema> atualizar(@RequestBody @Valid Tema tema, @PathVariable Long id) {
-		if(!temaRepository.existsById(id)) {
+	@PutMapping
+	public ResponseEntity<Tema> atualizar(@RequestBody @Validated(ValidationAtualizacaoTema.class) Tema tema) {
+		if(!temaRepository.existsById(tema.getId())) {
 			return ResponseEntity.notFound().build();
 		}
-		tema.setId(id);
 		return ResponseEntity.ok(temaRepository.save(tema));
 	}
 	
