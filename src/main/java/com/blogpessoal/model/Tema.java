@@ -37,6 +37,12 @@ public class Tema {
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagens = new ArrayList<>();
 	
+	public Tema() {}
+	
+	public Tema(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public Long getId() {
 		return id;
 	}

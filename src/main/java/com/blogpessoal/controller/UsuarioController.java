@@ -26,7 +26,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@PostMapping("/login") 
-	public ResponseEntity<UsuarioLogin> logar(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
+	public ResponseEntity<UsuarioLogin> logar(@RequestBody @Valid Optional<UsuarioLogin> usuarioLogin) {
 		return usuarioService.logar(usuarioLogin)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
@@ -34,7 +34,11 @@ public class UsuarioController {
 	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
+		try {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(usuarioService.cadastrarUsuario(usuario));
+		} catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 }

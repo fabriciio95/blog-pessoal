@@ -20,6 +20,12 @@ public class UsuarioService {
 	
 	
 	public Usuario cadastrarUsuario(Usuario usuario) {
+		Optional<Usuario> usuarioExistente = usuarioRepository.findByUsuario(usuario.getUsuario());
+		
+		if(usuarioExistente.isPresent()) {
+			throw new IllegalArgumentException();
+		}
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		usuario.setSenha(encoder.encode(usuario.getSenha()));

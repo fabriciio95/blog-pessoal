@@ -1,17 +1,28 @@
 package com.blogpessoal.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class UsuarioLogin {
 
 	private String nome;
 	
+	@NotBlank
 	private String usuario;
 	
+	@NotBlank
 	private String senha;
 	
 	private String token;
 
 	public String getNome() {
 		return nome;
+	}
+	
+	public UsuarioLogin() {}
+
+	public UsuarioLogin(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha;
 	}
 
 	public void setNome(String nome) {

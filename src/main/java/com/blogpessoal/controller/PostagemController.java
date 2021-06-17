@@ -81,7 +81,4 @@ public class PostagemController {
 		
 		return ResponseEntity.noContent().build();
 	}
-	
-	
-	
 }

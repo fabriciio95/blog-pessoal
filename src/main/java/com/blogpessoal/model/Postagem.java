@@ -54,6 +54,14 @@ public class Postagem implements Serializable {
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Tema tema;
+	
+	public Postagem() {}
+
+	public Postagem(String titulo, String texto, Tema tema) {
+		this.titulo = titulo;
+		this.texto = texto;
+		this.tema = tema;
+	}
 
 	public Long getId() {
 		return id;

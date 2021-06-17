@@ -22,10 +22,17 @@ public class Usuario {
 	@Size(min = 5, max = 100)
 	private String usuario;
 	
-	
 	@NotBlank
 	@Size(min = 5)
 	private String senha;
+	
+	public Usuario() {}
+
+	public Usuario(String nome, String usuario, String senha) {
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
 
 
 	public Long getId() {
