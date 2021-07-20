@@ -39,7 +39,7 @@ Pré-requisitos: Java 11, PostgreSQL
 # clonar repositório
 git clone https://github.com/fabriciio95/blog-pessoal.git
 
-#Alterar no arquivo application.properties as propriedades de usuário e senha passando a senha de seu banco de dados local
+# Alterar no arquivo application.properties as propriedades de usuário e senha passando a senha de seu banco de dados local
 
 # Entre na pasta raiz do projeto:
 cd blog-pessoal/target
@@ -53,7 +53,7 @@ Para acessar a documentação no Swagger, no seu navegador com a aplicação exe
 ```bash
 # usuario: admin
 # senha: admin
-https://appblogpessoal.herokuapp.com/swagger-ui/
+http://localhost:8080/swagger-ui/
 ```
 
 # Autor
