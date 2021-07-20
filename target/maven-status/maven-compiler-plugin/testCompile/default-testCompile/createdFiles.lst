@@ -1,0 +1,10 @@
+com\blogpessoal\model\PostagemModelTest.class
+com\blogpessoal\model\UsuarioModelTest.class
+com\blogpessoal\repository\UsuarioRepositoryTest.class
+com\blogpessoal\controller\PostagemControllerTest.class
+com\blogpessoal\BlogPessoalApplicationTests.class
+com\blogpessoal\controller\TemaControllerTest.class
+com\blogpessoal\repository\PostagemRepositoryTest.class
+com\blogpessoal\repository\TemaRepositoryTest.class
+com\blogpessoal\controller\UsuarioControllerTest.class
+com\blogpessoal\model\TemaModelTest.class

@@ -55,6 +55,10 @@ public class Postagem implements Serializable {
 	@JsonIgnoreProperties("postagens")
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagens")
+	private Usuario usuario;
+	
 	public Postagem() {}
 
 	public Postagem(String titulo, String texto, Tema tema) {
@@ -101,5 +105,13 @@ public class Postagem implements Serializable {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
